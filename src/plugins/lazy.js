@@ -1,16 +1,19 @@
 define('lazy', {
   load: function (name, req, onload, config) {
-    console.log(name, req, onload, config);
-    load({}, name, req.toUrl(name)).onload = function(event) {
-      console.log('LOADED', req);
-      req(name);
-      console.log(req);
-    };
-    //onload();
+    if(req.defined(name)) {
+      onload(req(name));
+    }
+    else {
+      var url = name + '.js';// req.toUrl(name) + '.js';
+      load({}, name, url).onload = function(event) {
+        console.log(name, url);
+        req([name], onload);
+      };
+    }
   },
-  normalize: function (name, normalize) {
-    return name;
-  }
+  // normalize: function (name, normalize) {
+  //   return name;
+  // }
 });
 
 function createNode(config, moduleName, url) {

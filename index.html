@@ -9,6 +9,11 @@
   <script>
     var require = {
       // baseUrl: '/src',
+      // map: {
+      //   '*': {
+      //     'src/dependA': 'lazy!src/dependA'
+      //   }
+      // },
       paths: {
         'src/dependA': 'lazy!src/dependA'
       }
@@ -16,12 +21,7 @@
   </script>
   <script src="lib/require.js"></script>
   <script src="src/plugins/lazy.js"></script>
-  <!-- <script src="src/appA.js"></script> -->
-  <script>
-    require(['lazy!src/appA'], function(appA) {
-      console.log('Loaded:', appA);
-    });
-  </script>
+  <script src="src/index.js"></script>
 </head>
 <body>
   Hello
