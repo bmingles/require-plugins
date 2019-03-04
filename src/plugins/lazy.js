@@ -1,13 +1,20 @@
 define('lazy', {
   load: function (name, req, onload, config) {
-    if(req.defined(name)) {
-      onload(req(name));
+    var lazyName = 'lazy!' + name;
+    var map = config && config.map && config.map['*'] || {};
+    var mappedFromName = Object.keys(map).find(function(key) {
+      return map[key] === lazyName;
+    });
+
+    if(req.defined(mappedFromName)) {
+      onload(req(mappedFromName));
     }
     else {
       var url = name + '.js';// req.toUrl(name) + '.js';
-      load({}, name, url).onload = function(event) {
-        console.log(name, url);
-        req([name], onload);
+      load({contextName: '_'}, name, url).onload = function(event) {
+        onload(name);
+        // console.log(name, url);
+        // req([mappedFromName], onload);
       };
     }
   },

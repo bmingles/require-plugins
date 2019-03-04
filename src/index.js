@@ -1,3 +1,3 @@
-require(['lazy!src/appA'], function(appA) {
-  console.log('Loaded:', appA);
+require(['react'], function(react) {
+  console.log('Loaded:', react);
 });
